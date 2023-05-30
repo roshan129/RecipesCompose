@@ -1,4 +1,4 @@
-package com.roshanadke.recipescompose.data.model.recipe
+package com.roshanadke.recipescompose.data.model
 
 data class WinePairing(
     val pairedWines: List<String>,

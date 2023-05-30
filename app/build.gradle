@@ -23,7 +23,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "API_KEY", "\"e289ca65279c487289eead8228c080ae\"")
+        }
         release {
+            buildConfigField("String", "API_KEY", "\"e289ca65279c487289eead8228c080ae\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -37,6 +41,7 @@ android {
     }
     buildFeatures {
         compose true
+        buildConfig true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.3.2'

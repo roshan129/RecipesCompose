@@ -1,7 +1,10 @@
 package com.roshanadke.recipescompose.di
 
 import androidx.lifecycle.ViewModel
-import com.roshanadke.recipescompose.network.RecipeService
+import com.roshanadke.recipescompose.data.network.RecipeService
+import com.roshanadke.recipescompose.data.repo.RecipesRepositoryImpl
+import com.roshanadke.recipescompose.domain.repo.RecipesRepository
+import com.roshanadke.recipescompose.domain.use_case.GetRecipeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +27,20 @@ object RecipesModule {
             .build()
             .create(RecipeService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideRecipesRepository(
+        recipeService: RecipeService
+    ): RecipesRepository {
+        return RecipesRepositoryImpl(recipeService = recipeService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetRecipesUseCase(
+        recipesRepository: RecipesRepository
+    ): GetRecipeUseCase {
+        return GetRecipeUseCase(recipesRepository)
+    }
 
 }
