@@ -1,5 +1,7 @@
 package com.roshanadke.recipescompose.presentation
 
+import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -57,12 +59,17 @@ fun RecipesMainScreen(
 
         Text(
             text = "Recommendation",
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.clickable {
+                Log.d("TAG", "RecipesMainScreen:  clicked ")
+                recipesViewModel.getRecipesList("pizza")
+            }
         )
 
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(recipesViewModel.recipesDashboardListState.value.recipesList) {
-                Text(text = "${it.title}")
+                Text(text = "${it.title}",
+               )
             }
         }
 

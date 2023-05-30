@@ -21,9 +21,12 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             Log.d("TAG", "onCreate: app start")
-            val viewModel: RecipesViewModel = hiltViewModel()
+
 
             RecipesComposeTheme {
+
+                val viewModel: RecipesViewModel = hiltViewModel()
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

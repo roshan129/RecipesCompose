@@ -20,12 +20,11 @@ object RecipesModule {
 
     @Provides
     @Singleton
-    fun provideRecipeService(): RecipeService =
-        Retrofit.Builder()
-            .baseUrl(RecipeService.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(RecipeService::class.java)
+    fun provideGetRecipesUseCase(
+        recipesRepository: RecipesRepository
+    ): GetRecipeUseCase {
+        return GetRecipeUseCase(recipesRepository)
+    }
 
     @Provides
     @Singleton
@@ -35,12 +34,17 @@ object RecipesModule {
         return RecipesRepositoryImpl(recipeService = recipeService)
     }
 
+
     @Provides
     @Singleton
-    fun provideGetRecipesUseCase(
-        recipesRepository: RecipesRepository
-    ): GetRecipeUseCase {
-        return GetRecipeUseCase(recipesRepository)
-    }
+    fun provideRecipeService(): RecipeService =
+        Retrofit.Builder()
+            .baseUrl(RecipeService.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RecipeService::class.java)
+
+
+
 
 }

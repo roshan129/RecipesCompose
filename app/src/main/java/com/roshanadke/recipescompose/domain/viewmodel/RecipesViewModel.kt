@@ -13,6 +13,7 @@ import com.roshanadke.recipescompose.domain.use_case.GetRecipeUseCase
 import com.roshanadke.recipescompose.presentation.RecipesDashboardDataState
 import com.roshanadke.recipescompose.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipesViewModel @Inject constructor(
-    private val getRecipeUseCase: GetRecipeUseCase
+    private val getRecipeUseCase: GetRecipeUseCase,
+    private val recipeService: RecipeService
 ) : ViewModel() {
 
 
@@ -37,9 +39,14 @@ class RecipesViewModel @Inject constructor(
         getRecipesList()
     }
 
-    private fun getRecipesList(searchQuery: String = "") {
+    fun getRecipesList(searchQuery: String = "") {
         Log.d("TAG", "getRecipesList: viewmodel")
         viewModelScope.launch {
+
+           /* val recipees = recipeService.getRecipes(searchQuery)
+            Log.d("TAG", "getRecipesList: ${recipees.toString()}")
+            Log.d("TAG", "getRecipesList: items:  ${recipees?.recipeListItem?.size}")
+*/
             getRecipeUseCase(searchQuery).onEach { result ->
                 when (result) {
                     is Resource.Success -> {
@@ -68,7 +75,7 @@ class RecipesViewModel @Inject constructor(
                             )
                     }
                 }
-            }
+            }.launchIn(this)
 
 
         }
