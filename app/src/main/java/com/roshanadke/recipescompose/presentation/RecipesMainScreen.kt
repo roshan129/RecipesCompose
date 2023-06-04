@@ -41,6 +41,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.roshanadke.recipescompose.R
@@ -50,7 +52,8 @@ import com.roshanadke.recipescompose.domain.viewmodel.RecipesViewModel
 
 @Composable
 fun RecipesMainScreen(
-    recipesViewModel: RecipesViewModel
+    navController: NavController,
+    recipesViewModel: RecipesViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
@@ -90,7 +93,11 @@ fun RecipesMainScreen(
             Log.d("TAG", "RecipesMainScreen: ${it.title} ")
         }
 
-        RecipesList(list = getTemporaryRecipesList(context))
+        RecipesList(
+            list = getTemporaryRecipesList(context),
+            onItemClick = {id ->
+                navController.navigate(Screen.RecipeDetailsScreen.withArgs(id.toString()))
+            })
 
     }
 
@@ -100,7 +107,8 @@ fun RecipesMainScreen(
 @OptIn(ExperimentalCoilApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun RecipesList(
-    list: List<RecipeListItem>
+    list: List<RecipeListItem>,
+    onItemClick: (Int) -> Unit,
 ) {
 
     Column {
@@ -116,7 +124,7 @@ fun RecipesList(
                         containerColor = Color.White
                     ),
                     onClick = {
-
+                        onItemClick(it.id)
                     }
 
                 ) {

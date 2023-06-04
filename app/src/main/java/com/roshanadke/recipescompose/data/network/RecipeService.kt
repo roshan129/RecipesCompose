@@ -24,7 +24,7 @@ interface RecipeService {
     @GET("/recipes/{id}/information")
     suspend fun getSingleRecipeInfo(
         @Path("id") recipeId: Int,
-        @Query("apiKey") apiKey: String,
+        @Query("apiKey") apiKey: String = BuildConfig.API_KEY,
         @Query("includeNutrition") includeNutrition: Boolean
     ): Recipe
 
