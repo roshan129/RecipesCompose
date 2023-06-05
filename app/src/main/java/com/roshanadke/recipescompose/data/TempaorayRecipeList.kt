@@ -2,9 +2,11 @@ package com.roshanadke.recipescompose.data
 
 import android.content.Context
 import android.util.Log
+import com.google.gson.Gson
+import com.roshanadke.recipescompose.data.model.Recipe
 import com.roshanadke.recipescompose.data.model.RecipeListItem
 import org.json.JSONObject
-import java.lang.Exception
+
 
 fun getTemporaryRecipesList(context: Context): List<RecipeListItem> {
 
@@ -35,4 +37,13 @@ fun getTemporaryRecipesList(context: Context): List<RecipeListItem> {
     }
 
     return emptyList()
+}
+
+fun getSingleRecipeData(context: Context): Recipe {
+    val jsonString = context.assets.open("recipe.json").bufferedReader().use { it.readText() }
+    val json = JSONObject(jsonString)
+
+    val gson = Gson()
+    return gson.fromJson(json.toString(), Recipe::class.java)
+
 }
