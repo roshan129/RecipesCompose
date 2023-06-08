@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.roshanadke.recipescompose.presentation.RecipeDetailsScreen
 import com.roshanadke.recipescompose.presentation.RecipesMainScreen
+import com.roshanadke.recipescompose.presentation.components.RecipeDetailsScreen
 import com.roshanadke.recipescompose.presentation.Screen
 
 @Composable

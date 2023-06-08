@@ -12,7 +12,11 @@ import retrofit2.http.Query
 interface RecipeService {
 
     companion object {
-        val BASE_URL = "https://api.spoonacular.com"
+        const val BASE_URL = "https://api.spoonacular.com"
+        private const val INGREDIENTS_IMG_BASE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
+        fun getIngredientsImgUrl(ingredientName: String): String {
+            return "$INGREDIENTS_IMG_BASE_URL$ingredientName"
+        }
     }
 
     @GET("/recipes/complexSearch")

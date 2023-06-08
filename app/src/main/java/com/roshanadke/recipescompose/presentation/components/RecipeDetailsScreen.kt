@@ -1,5 +1,6 @@
-package com.roshanadke.recipescompose.presentation
+package com.roshanadke.recipescompose.presentation.components
 
+import android.text.Html
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,8 +16,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +27,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.roshanadke.recipescompose.data.getSingleRecipeData
@@ -124,7 +122,7 @@ fun RecipeDetailsScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = it.summary,
+                    text =  Html.fromHtml(it.summary, Html.FROM_HTML_MODE_LEGACY).toString(),
                     modifier = Modifier.fillMaxWidth(),
                     fontWeight = FontWeight.Light
                 )
@@ -136,6 +134,7 @@ fun RecipeDetailsScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
+                IngredientsList(it.extendedIngredients)
 
 
 
@@ -162,3 +161,5 @@ fun RecipeDetailsScreen(
 
 
 }
+
+
