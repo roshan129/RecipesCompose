@@ -12,12 +12,7 @@ class GetRecipeListUseCase(
 ) {
 
     operator fun invoke(query: String): Flow<Resource<RecipeDashboardList>> {
-
-        if (query.isBlank()) {
-            return flow {  }
-        }
         val flowOne = recipesRepository.getRecipes(query = query)
-
         return flowOne
     }
 

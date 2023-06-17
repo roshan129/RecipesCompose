@@ -1,5 +1,6 @@
 package com.roshanadke.recipescompose.di
 
+import android.util.Log
 import com.roshanadke.recipescompose.data.network.RecipeService
 import com.roshanadke.recipescompose.data.repo.RecipesRepositoryImpl
 import com.roshanadke.recipescompose.domain.repo.RecipesRepository
@@ -48,7 +49,10 @@ object RecipesModule {
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
+        val logger = HttpLoggingInterceptor.Logger { message ->
+            Log.d("RetrofitLog", message)
+        }
+        return HttpLoggingInterceptor(logger).apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }

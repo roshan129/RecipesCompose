@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -57,6 +58,8 @@ fun RecipesMainScreen(
 ) {
 
     val context = LocalContext.current
+    val recipeListStateNew = recipesViewModel.recipesDashboardListState.value
+    val recipeeList = recipesViewModel.recipesDashboardListState.value.recipesList
 
     Column(
         modifier = Modifier
@@ -80,21 +83,17 @@ fun RecipesMainScreen(
         Text(
             text = "Recommendation",
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.clickable {
-                Log.d("TAG", "RecipesMainScreen:  clicked ")
-                recipesViewModel.getRecipesList("pizza")
-            }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
         //RecipesList(list = recipesViewModel.recipesDashboardListState.value.recipesList)
 
-        getTemporaryRecipesList(context = context).forEach {
+       /* getTemporaryRecipesList(context = context).forEach {
             Log.d("TAG", "RecipesMainScreen: ${it.title} ")
-        }
+        }*/
 
         RecipesList(
-            list = getTemporaryRecipesList(context),
+            list = recipeListStateNew.recipesList,
             onItemClick = {id ->
                 navController.navigate(Screen.RecipeDetailsScreen.withArgs(id.toString()))
             })

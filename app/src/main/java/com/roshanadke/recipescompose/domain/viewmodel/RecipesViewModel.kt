@@ -49,7 +49,7 @@ class RecipesViewModel @Inject constructor(
 
 
     init {
-        //getRecipesList()
+        getRecipesList("")
     }
 
     fun getRecipesList(searchQuery: String = "") {
